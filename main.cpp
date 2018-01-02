@@ -33,6 +33,7 @@ typedef struct MyData {
     int count;
 } MyData;
     zn_State  *S;         /* the znet event loop handler. keep it global */
+    zn_Tcp    *tcp;       /* znet tcp client handler     */
 /* function to accept a new coming connection. */
 void on_accept(void *ud, zn_Accept *accept, unsigned err, zn_Tcp *tcp);
 /* function when a tcp in server mode received something. */
@@ -79,7 +80,6 @@ static void register_interrupted(void) {
 int main(int argc, char** argv) {
 
     zn_Timer  *timer;     /* znet timer handler          */
-    zn_Tcp    *tcp;       /* znet tcp client handler     */
     zn_Accept *accept;    /* znet tcp service handler    */
     /* we can print out which engine znet uses: */
     printf("znet example: use %s engine.\n", zn_engine());    
@@ -141,6 +141,9 @@ zn_Time on_timer(void *ud, zn_Timer *timer, zn_Time elapsed) {
      * called, return 0 means we want delete this timer and don't
      * called again. */
     printf("call before return in on_timer");
+    //the time finished, free resources
+    
+    //free(data);
     return 0;
 }
 
